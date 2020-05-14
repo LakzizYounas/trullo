@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import WithModal from '../with-modal/with-modal.components';
 
 import {
   StyledBoardsOverview,
 } from './boards-overview.styles';
 
 import Board from '../../components/board/board.component';
+import AddBoard from '../../components/add-board/add-board.component';
+
+const ModalAddBoard = WithModal(AddBoard);
 
 const boards = [
   { id: 'azedzdeaz', imgName: '1', users: [], name: 'Mon giga board' },
@@ -22,15 +27,23 @@ const boards = [
 
 // get boards from redux in props
 const BoardsOverview = () => {
-  const addBoard = () => {
+  const [state, setState] = useState({
+    showModal: false,
+  });
+
+  const toggleModal = () => {
+    setState(prevState => ({ ...prevState, showModal: !state.showModal }) );
     console.log('add board overview');
   };
 
   return (
-    <StyledBoardsOverview>
-      {boards.map(({ id, ...otherProps }) => (<Board key={id} {...otherProps} />))}
-      <Board name='Create new board' onClick={addBoard} />
-    </StyledBoardsOverview>
+    <>
+      <ModalAddBoard showModal={state.showModal} />
+      <StyledBoardsOverview>
+        {boards.map(({ id, ...otherProps }) => (<Board key={id} {...otherProps} />))}
+        <Board name='Create new board' onClick={toggleModal} />
+      </StyledBoardsOverview>
+    </>
   );
 };
 
