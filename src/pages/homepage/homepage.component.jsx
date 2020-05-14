@@ -2,12 +2,13 @@ import React from 'react';
 
 import {
   StyledHomepage,
-  StyledBoardsOverview,
 } from './homepage.styles';
+
+import BoardsOverview from '../../components/boards-overview/boards-overview.component';
 
 const Homepage = () => (
   <StyledHomepage>
-    <StyledBoardsOverview />
+    <BoardsOverview />
   </StyledHomepage>
 );
 
