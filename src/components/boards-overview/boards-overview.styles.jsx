@@ -8,9 +8,9 @@ export const StyledBoardsOverview = styled.div`
   justify-content: center;
   justify-items: stretch;
 
-  background-color: #1d2b70;
+  background-color: #262e59;
   width: 1000px;
-  height: 80%;
+  height: 60vh;
   border-radius: 15px;
   margin: 80px auto 0 auto;
   padding: 40px;

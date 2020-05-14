@@ -1,21 +1,28 @@
 import styled from 'styled-components';
 
+const newBoardStyle = `
+  background-image: url(/board_wallpaper/plus.svg);
+  background-size: contain;
+`;
+
+const imgStyle = imgName => `
+  background-image: url(/board_wallpaper/${imgName}.jpg);
+  background-size: cover;
+`;
+
 export const StyledBoard = styled.div`
-  ${({ imgName }) => `
-    background-image: url(/board_wallpaper/${imgName}.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-  `}
-  
+  ${({ imgName }) => imgName ? imgStyle(imgName) : newBoardStyle}
+  background-repeat: no-repeat;
+  background-position: center;
+
   display: flex;
   border-radius: 15px;
   height: 150px;
   min-width: 150px;
 
   &:hover {
-    filter: brightness(80%) drop-shadow(0 0 1mm #ffffff);
-    transform: rotate(2deg);
+    filter: brightness(85%) drop-shadow(0 0 1mm #ffffff);
+    transform: rotate(1deg);
     transform-origin: top left;
   }
 `;

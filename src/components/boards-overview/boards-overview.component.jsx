@@ -25,6 +25,7 @@ const BoardsOverview = () => (
   <>
     <StyledBoardsOverview>
       {boards.map(({ id, ...otherProps }) => (<Board key={id} {...otherProps} />))}
+      <Board name='Create new board' />
     </StyledBoardsOverview>
   </>
 );
