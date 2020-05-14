@@ -21,13 +21,17 @@ const boards = [
 ];
 
 // get boards from redux in props
-const BoardsOverview = () => (
-  <>
+const BoardsOverview = () => {
+  const addBoard = () => {
+    console.log('add board overview');
+  };
+
+  return (
     <StyledBoardsOverview>
       {boards.map(({ id, ...otherProps }) => (<Board key={id} {...otherProps} />))}
-      <Board name='Create new board' />
+      <Board name='Create new board' onClick={addBoard} />
     </StyledBoardsOverview>
-  </>
-);
+  );
+};
 
 export default BoardsOverview;

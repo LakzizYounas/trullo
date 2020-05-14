@@ -6,15 +6,16 @@ import {
   StyledBoard,
 } from './board.styles';
 
-const Board = ({ imgName, name }) => (
-  <StyledBoard imgName={imgName} name={name}>
+const Board = ({ name, ...otherProps }) => (
+  <StyledBoard {...otherProps}>
     <Name>{ name }</Name>
   </StyledBoard>
 );
 
 Board.propTypes = {
-  imgName: PropTypes.string,
   name: PropTypes.string,
+  imgName: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default Board;
