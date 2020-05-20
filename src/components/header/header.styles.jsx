@@ -4,7 +4,7 @@ import { ReactComponent as TrulloSvg } from '../../assets/logo.svg';
 
 export const StyledHeader = styled.div`
   background-color: #1A2F54;
-  border-radius: 0 0 15px 15px;
+  border-radius: 0 0 5px 5px;
   padding: 4px 0 0 0;
 `;
 

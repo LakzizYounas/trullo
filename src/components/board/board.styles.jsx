@@ -16,7 +16,7 @@ export const StyledBoard = styled.div`
   background-position: center;
 
   display: flex;
-  border-radius: 15px;
+  border-radius: 5px;
   height: 150px;
   min-width: 150px;
 

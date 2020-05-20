@@ -11,7 +11,7 @@ export const StyledBoardsOverview = styled.div`
   background-color: #262e59;
   width: 1000px;
   height: 60vh;
-  border-radius: 15px;
+  border-radius: 5px;
   margin: 80px auto 0 auto;
   padding: 40px;
   overflow-y: auto;

@@ -1,4 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+
+import { selectNewBoardHidden } from '../../redux/board/board.selectors';
+import { toggleNewBoardHidden } from '../../redux/board/board.actions';
 
 import WithModal from '../with-modal/with-modal.components';
 
@@ -26,25 +32,30 @@ const boards = [
 ];
 
 // get boards from redux in props
-const BoardsOverview = () => {
-  const [state, setState] = useState({
-    showModal: false,
-  });
+const BoardsOverview = ({ hidden, toggleNewBoardHidden }) => (
+  <>
+    <ModalAddBoard isOpen={!hidden} close={toggleNewBoardHidden} />
+    <StyledBoardsOverview>
+      {boards.map(({ id, ...otherProps }) => (<Board key={id} {...otherProps} />))}
+      <Board name='Create new board' onClick={toggleNewBoardHidden} />
+    </StyledBoardsOverview>
+  </>
+);
 
-  const toggleModal = () => {
-    setState(prevState => ({ ...prevState, showModal: !state.showModal }) );
-    console.log('add board overview');
-  };
-
-  return (
-    <>
-      <ModalAddBoard showModal={state.showModal} />
-      <StyledBoardsOverview>
-        {boards.map(({ id, ...otherProps }) => (<Board key={id} {...otherProps} />))}
-        <Board name='Create new board' onClick={toggleModal} />
-      </StyledBoardsOverview>
-    </>
-  );
+BoardsOverview.propTypes = {
+  hidden: PropTypes.bool,
+  toggleNewBoardHidden: PropTypes.func,
 };
 
-export default BoardsOverview;
+const mapStateToProps = createStructuredSelector({
+  hidden: selectNewBoardHidden,
+});
+
+const mapDispatchToProps = dispatch => ({
+  toggleNewBoardHidden: () => dispatch(toggleNewBoardHidden()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BoardsOverview);
