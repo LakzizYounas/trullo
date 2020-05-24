@@ -1,25 +1,29 @@
 import React from 'react';
 
 import {
-  StyledModal,
   Content,
+  Cross,
+  Header,
+  StyledModal,
+  Title,
 } from './with-modal.styles';
 
-const WithModal = WrappedComponent => ({ isOpen, close, ...otherProps }) => {
+const WithModal = WrappedComponent => ({ isOpen, close, title, ...otherProps }) => {
+
+  const onClick = (e) => {
+    if (e.target === e.currentTarget) {
+      close();
+    }
+  };
+
   return isOpen ? (
-    <StyledModal onClick={(e) => {
-      if (e.target === e.currentTarget) {
-        close();
-      }
-    }}>
+    <StyledModal onClick={onClick}>
       <Content>
-        <div onClick={close}>
-          X
-        </div>
+        <Header>
+          <Title>{title}</Title>
+          <Cross onClick={close} />
+        </Header>
         <WrappedComponent {...otherProps} />
-        <div>
-          END MODAL
-        </div>
       </Content>
     </StyledModal>
   ) : null;

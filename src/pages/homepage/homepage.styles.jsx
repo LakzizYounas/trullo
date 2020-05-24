@@ -3,5 +3,10 @@ import styled from 'styled-components';
 export const StyledHomepage = styled.div`
   display: flex;
   justify-content: center;
-  flex: 0 1 auto;
+  margin: 0 auto;
+  width: 1000px;
+
+  @media screen and (max-width: 1100px) {
+    width: 100%;
+  }
 `;

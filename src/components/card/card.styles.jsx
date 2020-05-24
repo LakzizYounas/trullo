@@ -10,16 +10,7 @@ const imgStyle = imgName => `
   background-size: cover;
 `;
 
-export const StyledBoard = styled.div`
-  ${({ imgName }) => imgName ? imgStyle(imgName) : newBoardStyle}
-  background-repeat: no-repeat;
-  background-position: center;
-
-  display: flex;
-  border-radius: 5px;
-  height: 150px;
-  min-width: 150px;
-
+const hoverEffect = `
   &:hover {
     filter: brightness(85%) drop-shadow(0 0 1mm #ffffff);
     transform: rotate(1deg);
@@ -27,11 +18,27 @@ export const StyledBoard = styled.div`
   }
 `;
 
+export const StyledBoard = styled.div`
+  display: flex;
+  ${({ imgName }) => imgName ? imgStyle(imgName) : newBoardStyle}
+  background-repeat: no-repeat;
+  background-position: center;
+
+  border-radius: 5px;
+  height: auto;
+  width: 100%;
+
+  ${({ hover }) => hover ? hoverEffect  : null}
+`;
+
 export const Name = styled.div`
   color: white;
   font-weight: bold;
   font-size: 1.2rem;
-  text-shadow: 0px 0px 5px black;
+  text-shadow: 0px 0px 2px black;
+  align-self: center;
+  margin: 0 auto;
+`;
 
-  margin: 100px auto 0;
+export const ChildContainer = styled.div`
 `;

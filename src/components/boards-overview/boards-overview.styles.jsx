@@ -2,16 +2,17 @@ import styled from 'styled-components';
 
 export const StyledBoardsOverview = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  column-gap: 20px;
-  row-gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 150px;
+  column-gap: 40px;
+  row-gap: 40px;
   justify-content: center;
   justify-items: stretch;
 
-  background-color: #262e59;
-  width: 1000px;
-  height: 60vh;
+  width: 100%;
+  height: 53vh;
   border-radius: 5px;
+  box-shadow: 0 0 10px grey;
   margin: 80px auto 0 auto;
   padding: 40px;
   overflow-y: auto;
