@@ -2,35 +2,52 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { withRouter } from 'react-router-dom';
 
 import { selectCurrentUser } from '../../redux/user/user.selectors';
+import { signOutStart } from '../../redux/user/user.actions';
 
 import {
-  Placeholder,
+  LeftContainer,
+  RightContainer,
   StyledDisplayName,
   StyledHeader,
+  StyledSignIn,
+  StyledSignOut,
   Logo,
 } from './header.styles';
 
-const Header = ({ user }) => (
+const Header = ({ user, signOutStart, history }) => (
   <StyledHeader>
-    <Placeholder />
-    <Logo fill='white' />
-    {user ?
-      <StyledDisplayName>{console.log(user) || user.displayName}</StyledDisplayName> :
-      <div>no user</div>
-    }
+    <LeftContainer />
+    <Logo onClick={() => history.push('/') }/>
+    <RightContainer>
+      {user ?
+        <>
+          <StyledDisplayName>{user.displayName}</StyledDisplayName>
+          <StyledSignOut onClick={signOutStart}>sign out</StyledSignOut>
+        </>:
+        <StyledSignIn onClick={() => history.push('/sign') }>Sign in</StyledSignIn>
+      }
+    </RightContainer>
   </StyledHeader>
 );
 
 Header.propTypes = {
   user: PropTypes.object,
+  signOutStart: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   user: selectCurrentUser,
 });
 
-export default connect(
+const mapDispatchToProps = dispatch => ({
+  signOutStart: () => dispatch(signOutStart()),
+});
+
+export default withRouter(connect(
   mapStateToProps,
-)(Header);
+  mapDispatchToProps,
+)(Header));

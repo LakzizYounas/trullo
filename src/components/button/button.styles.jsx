@@ -13,8 +13,7 @@ export const StyledButton = styled.button`
   filter: brightness(90%);
 
   width: 100%;
-  padding: 14px 20px;
-  margin: 8px 0;
+  padding: 14px 0px;
 
   &:hover {
     filter: brightness(1);
