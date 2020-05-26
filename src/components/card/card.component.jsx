@@ -7,15 +7,15 @@ import {
   StyledBoard,
 } from './card.styles';
 
-const Card = ({ name, children, ...otherProps }) => (
+const Card = ({ text, children, ...otherProps }) => (
   <StyledBoard {...otherProps}>
-    {name ? <Name>{ name }</Name> : null}
+    {text ? <Name>{ text }</Name> : null}
     {children ? <ChildContainer>{children}</ChildContainer> : null}
   </StyledBoard>
 );
 
 Card.propTypes = {
-  name: PropTypes.string,
+  text: PropTypes.string,
   imgName: PropTypes.string,
   onClick: PropTypes.func,
   children: PropTypes.node,

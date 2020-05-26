@@ -18,17 +18,17 @@ import AddBoard from '../../components/add-board/add-board.component';
 const ModalAddBoard = WithModal(AddBoard);
 
 const boards = [
-  { id: 'azedzdeaz', imgName: '1', users: [], name: 'Mon giga board' },
-  { id: 'qsdaddsq', imgName: '2', users: [], name: 'board2' },
-  { id: 'gerzsgrdf', imgName: '3', users: [], name: 'autre board' },
-  { id: 'ezrdsvxcv', imgName: '4', users: [], name: 'un boardel' },
-  // { id: 'ezswdftg', imgName: '5', users: [], name: 'board5' },
-  // { id: 'juyjtrhreg', imgName: '6', users: [], name: 'boardeciel' },
-  // { id: 'gtrdfvbrestg', imgName: '7', users: [], name: 'ababoard' },
-  // { id: 'rztsergwds', imgName: '8', users: [], name: 'babord' },
-  // { id: 'vdsfqbbx', imgName: '9', users: [], name: 'boardragon' },
-  // { id: 'htyjtyw', imgName: '10', users: [], name: 'bordelit' },
-  // { id: 'aqsfergze', imgName: '11', users: [], name: 'boardefalaise' },
+  { id: 'azedzdeaz', imgName: '1', users: [], text: 'Mon giga board' },
+  { id: 'qsdaddsq', imgName: '2', users: [], text: 'board2' },
+  { id: 'gerzsgrdf', imgName: '3', users: [], text: 'autre board' },
+  { id: 'ezrdsvxcv', imgName: '4', users: [], text: 'un boardel' },
+  // { id: 'ezswdftg', imgName: '5', users: [], text: 'board5' },
+  // { id: 'juyjtrhreg', imgName: '6', users: [], text: 'boardeciel' },
+  // { id: 'gtrdfvbrestg', imgName: '7', users: [], text: 'ababoard' },
+  // { id: 'rztsergwds', imgName: '8', users: [], text: 'babord' },
+  // { id: 'vdsfqbbx', imgName: '9', users: [], text: 'boardragon' },
+  // { id: 'htyjtyw', imgName: '10', users: [], text: 'bordelit' },
+  // { id: 'aqsfergze', imgName: '11', users: [], text: 'boardefalaise' },
 ];
 
 // get boards from redux in props
@@ -37,7 +37,7 @@ const BoardsOverview = ({ hidden, toggleNewBoardHidden }) => (
     <ModalAddBoard isOpen={!hidden} close={toggleNewBoardHidden} title='New Card' />
     <StyledBoardsOverview>
       {boards.map(({ id, ...otherProps }) => (<Card key={id} hover {...otherProps} />))}
-      <Card name='Create new board' hover onClick={toggleNewBoardHidden} />
+      <Card text='Create new board' hover onClick={toggleNewBoardHidden} />
     </StyledBoardsOverview>
   </>
 );

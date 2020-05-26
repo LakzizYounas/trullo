@@ -27,3 +27,7 @@ export const StyledForm = styled.form`
   flex-direction: column;
   align-items: center;
 `;
+
+export const StyledOr = styled.div`
+  margin: 10px 0;
+`;

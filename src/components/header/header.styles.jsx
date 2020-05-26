@@ -10,6 +10,10 @@ export const StyledHeader = styled.div`
   padding: 5px 0 5px 0;
 `;
 
+export const LeftContainer = styled.div`
+  width: 33%;
+`;
+
 export const Logo = styled(TrulloSvg)`
   height: 40px;
   width: 130px;
@@ -24,31 +28,29 @@ export const RightContainer = styled.div`
   line-height: 40px;
   height: 100%;
   width: 33%;
+  color: white;
 `;
 
 export const StyledDisplayName = styled.div`
-  margin: 0 10px;
+  margin: 10px 10px 0 10px;
+  font: italic 1.2em "Fira Sans", serif;
 `;
 
 export const StyledSignOut = styled.div`
-  width: 40%;
   height: 50%;
-  color: grey;
   margin: 0 10px;
+  padding: 0 10px;
+  border: 1px solid white;
+  border-radius: 5px;
 
   &:hover {
     cursor: pointer;
   }
 `;
 
-export const LeftContainer = styled.div`
-  width: 33%;
-`;
-
 export const StyledSignIn = styled.div`
   width: 30%;
   height: 50%;
-  color: white;
   border: 1px solid white;
   border-radius: 5px;
   margin: 0 10px;

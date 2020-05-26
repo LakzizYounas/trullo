@@ -13,6 +13,7 @@ import {
   StyledContainer,
   StyledForm,
   StyledInput,
+  StyledOr,
 } from './sign-in.styles';
 
 const SignIn = ({ emailSignInStart, googleSignInStart }) => {
@@ -61,7 +62,7 @@ const SignIn = ({ emailSignInStart, googleSignInStart }) => {
           required
         />
         <Button type='submit' text='Sign up' />
-        <div>OR</div>
+        <StyledOr>OR</StyledOr>
         <Button text='Sign in with Google' google onClick={googleSignInStart}/>
       </StyledForm>
     </StyledContainer>
