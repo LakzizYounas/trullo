@@ -1,6 +1,11 @@
 import React, { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import range from '../../utils/range';
+import { addBoardStart } from '../../redux/board/board.actions';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
 
 import Card from '../card/card.component';
 import TextInput from '../text-input/text-input.component';
@@ -13,33 +18,57 @@ import {
   Validate,
 } from './add-board.styles';
 
-const AddBoard = () => {
-  const [board, setBoard] = useState({
+const AddBoard = ({ addBoard, currentUser }) => {
+  const [boardInfos, setBoardInfos] = useState({
     imgName: 2,
     title: '',
   });
 
-  const { imgName, title } = board;
+  const { imgName, title } = boardInfos;
 
   const handleBackgroundChange = useCallback((imgName) =>
-    setBoard({ title, imgName })
+    setBoardInfos({ imgName, title })
   , [title]);
+
+  const handleTitleChange = useCallback((title) =>
+    setBoardInfos({ imgName, title })
+  , [imgName]);
 
   return (
     <AddBoardContainer>
       <StyledBoard imgName={imgName}>
-        <TextInput inverted placeholder='Add board title' />
+        <TextInput inverted placeholder='Add board title' value={title}
+          onChange={({target: { value }}) => handleTitleChange(value)}
+        />
       </StyledBoard>
       <RightSideContainer>
         <BackgroundPicker>
           {[...range(1, 11)].map(e =>
-            <Card key={e} imgName={e} hover onClick={() => handleBackgroundChange(e)} />
+            <Card key={e} imgName={e} hover
+              onClick={() => handleBackgroundChange(e)} />
           )}
         </BackgroundPicker>
-        <Validate text='Valider' />
+        <Validate text='Valider'
+          onClick={() => addBoard({ ...boardInfos, user: currentUser.id })}/>
       </RightSideContainer>
     </AddBoardContainer>
   );
 };
 
-export default AddBoard;
+AddBoard.propTypes = {
+  addBoard: PropTypes.func.isRequired,
+  currentUser: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+});
+
+const mapDispatchToProps = dispatch => ({
+  addBoard: (boardInfos) => dispatch(addBoardStart(boardInfos)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddBoard);

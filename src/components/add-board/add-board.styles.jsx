@@ -41,4 +41,5 @@ export const RightSideContainer = styled.div`
 `;
 
 export const Validate = styled(Button)`
+  margin-top: 5px;
 `;

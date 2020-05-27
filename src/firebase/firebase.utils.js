@@ -13,12 +13,23 @@ const firebaseConfig = {
   measurementId: 'G-QDP5J2X0JP'
 };
 
-firebase.initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
+
+export const addDocumentToCollection = async (collection, document) => {
+  try {
+    document.timestamp = firebase.firestore.FieldValue.serverTimestamp();
+    return await db.collection(collection).add(document);
+  } catch (error) {
+    console.error('Error adding document ', document,
+      ' to collection ', collection, ' Error: ', error);
+    return null;
+  }
+};
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
 
-  const userRef = firestore.doc(`users/${userAuth.uid}`);
+  const userRef = db.doc(`users/${userAuth.uid}`);
   const snapShot = await userRef.get();
 
   if (!snapShot.exists) {
@@ -49,7 +60,7 @@ export const getCurrentUser = () => {
 };
 
 export const auth = firebase.auth();
-export const firestore = firebase.firestore();
+export const db = firebase.firestore(app);
 
 export const googleProvider = new firebase.auth.GoogleAuthProvider();
 googleProvider.setCustomParameters({ prompt: 'select_account' });
