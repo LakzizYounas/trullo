@@ -12,11 +12,7 @@ export default function* range(start, end) {
 }
 /**
  * Usage exemple:
- * 
- * for (i of range(1, 5)) {
- *  console.log(i);
- * }
  *
- *
+ * for (i of range(1, 5)) {}
  * [...range(1, 5)]
  */
