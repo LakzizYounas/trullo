@@ -7,8 +7,10 @@ import { addDocumentToCollection } from '../../firebase/firebase.utils';
 
 export function* addBoard({ payload }) {
   try {
-    const board = yield addDocumentToCollection('boards', payload);
-    yield put(addBoardSuccess(board));
+    const boardRef = yield addDocumentToCollection('boards', payload);
+    const boardSnapshot = yield boardRef.get();
+
+    yield put(addBoardSuccess({ id: boardSnapshot.id, ...boardSnapshot.data() }));
   } catch (error) {
     yield put(addBoardFailure(error));
   }

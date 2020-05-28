@@ -23,7 +23,7 @@ const boardReducer = (state = INITIAL_STATE, action) => {
       ...state,
       error: null,
       hidden: true,
-      byIds: state.byIds.set([payload.id, payload]),
+      byIds: state.byIds.set(payload.id, payload),
       allIds: state.allIds.add(payload.id),
     };
   case BoardActionTypes.ADD_BOARD_FAILURE:
