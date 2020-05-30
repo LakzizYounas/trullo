@@ -1,9 +1,14 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
 
 import { BoardActionTypes } from './board.types';
-import { addBoardSuccess, addBoardFailure } from './board.actions';
+import {
+  addBoardSuccess,
+  addBoardFailure,
+  loadUserBoardsSuccess,
+  loadUserBoardsFailure,
+} from './board.actions';
 
-import { addDocumentToCollection } from '../../firebase/firebase.utils';
+import { addDocumentToCollection, db } from '../../firebase/firebase.utils';
 
 export function* addBoard({ payload }) {
   try {
@@ -16,6 +21,24 @@ export function* addBoard({ payload }) {
   }
 }
 
+export function* loadUserBoards({ payload }) {
+  try {
+    const querySnapshot = yield db.collection('boards')
+      .where('user', '==', payload)
+      .orderBy('timestamp').get();
+    const byIds = {};
+    const allIds = [];
+    querySnapshot.forEach(doc => {
+      const data = doc.data();
+      byIds[doc.id] = { id: doc.id, ...data };
+      allIds.push(doc.id);
+    });
+    yield put(loadUserBoardsSuccess({ byIds, allIds }));
+  } catch (error) {
+    yield put(loadUserBoardsFailure(error));
+  }
+}
+
 export function* onAddBoardStart() {
   yield takeLatest(
     BoardActionTypes.ADD_BOARD_START,
@@ -23,8 +46,16 @@ export function* onAddBoardStart() {
   );
 }
 
+export function* onLoadUserBoards() {
+  yield takeLatest(
+    BoardActionTypes.LOAD_USER_BOARDS_START,
+    loadUserBoards,
+  );
+}
+
 export function* boardSagas() {
   yield all([
     call(onAddBoardStart),
+    call(onLoadUserBoards),
   ]);
 }

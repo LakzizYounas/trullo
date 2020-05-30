@@ -23,14 +23,18 @@ const App = ({ checkUserSession, currentUser }) => {
   useEffect(() => {
     checkUserSession();
   }, [checkUserSession]);
+  console.log('app render', currentUser);
 
   return (
     <>
     <Header />
     <Switch>
       <Suspense fallback={<div>loading</div>}>
-        <Route exact path='/' component={Homepage} />
-        <Route exact path='/sign' render={() => currentUser ? <Redirect to='/' /> : <SignInSignUp />} />
+        {!currentUser &&
+          <Redirect to='/sign' />
+        }
+        <Route exact path='/' component={Homepage} /> 
+        <Route exact path='/sign' render={() => currentUser ? <Redirect to='/'/> : <SignInSignUp />} />
       </Suspense>
     </Switch>
     </>

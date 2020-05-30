@@ -11,7 +11,10 @@ export const addBoardStart = (boardInfos) => ({
 
 export const addBoardSuccess = (board) => ({
   type: BoardActionTypes.ADD_BOARD_SUCCESS,
-  payload: board,
+  payload: {
+    byIds: { [board.id]: board },
+    allIds: [board.id],
+  },
 });
 
 export const addBoardFailure = (error) => ({
@@ -19,3 +22,20 @@ export const addBoardFailure = (error) => ({
   payload: error,
 });
 
+export const loadUserBoardsStart = (userid) => ({
+  type: BoardActionTypes.LOAD_USER_BOARDS_START,
+  payload: userid,
+});
+
+export const loadUserBoardsSuccess = ({ byIds, allIds }) => ({
+  type: BoardActionTypes.LOAD_USER_BOARDS_SUCCESS,
+  payload: {
+    byIds,
+    allIds,
+  },
+});
+
+export const loadUserBoardsFailure = (error) => ({
+  type: BoardActionTypes.LOAD_USER_BOARDS_FAILURE,
+  payload: error,
+});

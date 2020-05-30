@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { signOutStart } from '../../redux/user/user.actions';
@@ -20,7 +20,7 @@ import {
 const Header = ({ user, signOutStart, history }) => (
   <StyledHeader>
     <LeftContainer />
-    <Logo onClick={() => history.push('/') }/>
+    <Logo onClick={() => <Redirect to='/' /> }/>
     <RightContainer>
       {user ?
         <>

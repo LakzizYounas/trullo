@@ -20,7 +20,7 @@ import {
 
 const AddBoard = ({ addBoard, currentUser }) => {
   const [boardInfos, setBoardInfos] = useState({
-    imgName: 2,
+    imgName: '2',
     title: '',
   });
 
@@ -43,7 +43,7 @@ const AddBoard = ({ addBoard, currentUser }) => {
       </StyledBoard>
       <RightSideContainer>
         <BackgroundPicker>
-          {[...range(1, 11)].map(e =>
+          {[...range(1, 11)].map(e => e.toString()).map(e =>
             <Card key={e} imgName={e} hover
               onClick={() => handleBackgroundChange(e)} />
           )}

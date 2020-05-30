@@ -19,14 +19,16 @@ const boardReducer = (state = INITIAL_STATE, action) => {
       hidden: !state.hidden,
     };
   case BoardActionTypes.ADD_BOARD_SUCCESS:
+  case BoardActionTypes.LOAD_USER_BOARDS_SUCCESS:
     return {
       ...state,
       error: null,
       hidden: true,
-      byIds: state.byIds.set(payload.id, payload),
-      allIds: state.allIds.add(payload.id),
+      byIds: state.byIds.merge(payload.byIds),
+      allIds: state.allIds.union(payload.allIds),
     };
   case BoardActionTypes.ADD_BOARD_FAILURE:
+  case BoardActionTypes.LOAD_USER_BOARDS_FAILURE:
     return {
       ...state,
       error: payload,

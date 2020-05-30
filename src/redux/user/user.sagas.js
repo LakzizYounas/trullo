@@ -10,6 +10,9 @@ import {
   signOutSuccess,
   signOutFailure,
 } from './user.actions';
+import {
+  loadUserBoardsStart,
+} from '../board/board.actions';
 
 import {
   auth,
@@ -30,8 +33,11 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
 
 export function* signInWithGoogle() {
   try {
+    console.log('signinwithgoogle start');
     const { user } = yield auth.signInWithPopup(googleProvider);
+    console.log('signinwithgoogle popup');
     yield getSnapshotFromUserAuth(user);
+    console.log('signinwithgoogle end');
   } catch (error) {
     yield put(signInFailure(error));
   }
@@ -78,6 +84,10 @@ export function* signOut() {
   }
 }
 
+export function* afterSignInSuccess({ payload: { id } }) {
+  yield put(loadUserBoardsStart(id));
+}
+
 export function* onGoogleSignInStart() {
   yield takeLatest(
     UserActionTypes.GOOGLE_SIGN_IN_START,
@@ -89,6 +99,13 @@ export function* onEmailSignInStart() {
   yield takeLatest(
     UserActionTypes.EMAIL_SIGN_IN_START,
     signInWithEmail
+  );
+}
+
+export function* onSignInSuccess() {
+  yield takeLatest(
+    UserActionTypes.SIGN_IN_SUCCESS,
+    afterSignInSuccess
   );
 }
 
@@ -124,6 +141,7 @@ export function* userSagas() {
   yield all([
     call(onGoogleSignInStart),
     call(onEmailSignInStart),
+    call(onSignInSuccess),
     call(onSignUpStart),
     call(onSignUpSuccess),
     call(onCheckUserSession),
