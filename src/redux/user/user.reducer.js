@@ -16,6 +16,12 @@ const userReducer = (state = INITIAL_STATE, action) => {
       error: null,
       isFetching: true,
     };
+  case UserActionTypes.NO_USER_AUTHENTICATED:
+    return {
+      ...state,
+      error: null,
+      isFetching: false,
+    };
   case UserActionTypes.SIGN_IN_SUCCESS:
     return {
       ...state,

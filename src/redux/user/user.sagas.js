@@ -9,6 +9,7 @@ import {
   signUpFailure,
   signOutSuccess,
   signOutFailure,
+  noUserAuthenticated,
 } from './user.actions';
 import {
   loadUserBoardsStart,
@@ -65,7 +66,10 @@ export function* signInAfterSignUp({ payload: { user, additionalData }}) {
 export function* isUserAuthenticated() {
   try {
     const userAuth = yield getCurrentUser();
-    if (!userAuth) return;
+    if (!userAuth) {
+      yield put(noUserAuthenticated());
+      return;
+    }
     yield getSnapshotFromUserAuth(userAuth);
   } catch (error) {
     yield put(signInFailure(error));
