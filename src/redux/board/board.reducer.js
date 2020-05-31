@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   hidden: true,
   byIds: new Map(),
   allIds: new Set(),
+  isFetchingUserBoards: false,
 };
 
 const boardReducer = (state = INITIAL_STATE, action) => {
@@ -18,8 +19,21 @@ const boardReducer = (state = INITIAL_STATE, action) => {
       ...state,
       hidden: !state.hidden,
     };
-  case BoardActionTypes.ADD_BOARD_SUCCESS:
+  case BoardActionTypes.LOAD_USER_BOARDS_START:
+    return {
+      ...state,
+      isFetchingUserBoards: true,
+    };
   case BoardActionTypes.LOAD_USER_BOARDS_SUCCESS:
+    return {
+      ...state,
+      error: null,
+      hidden: true,
+      byIds: new Map(payload.byIds),
+      allIds: new Set(payload.allIds),
+      isFetchingUserBoards: false,
+    };
+  case BoardActionTypes.ADD_BOARD_SUCCESS:
     return {
       ...state,
       error: null,

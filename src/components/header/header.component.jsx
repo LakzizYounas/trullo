@@ -19,12 +19,13 @@ import {
 
 const Header = ({ user, signOutStart, history }) => (
   <StyledHeader>
-    <LeftContainer />
+    <LeftContainer>
+      {user ? <StyledDisplayName>{user.displayName}</StyledDisplayName> : null}
+    </LeftContainer>
     <Logo onClick={() => <Redirect to='/' /> }/>
     <RightContainer>
       {user ?
         <>
-          <StyledDisplayName>{user.displayName}</StyledDisplayName>
           <StyledSignOut onClick={signOutStart}>sign out</StyledSignOut>
         </>:
         <StyledSignIn onClick={() => history.push('/sign') }>Sign in</StyledSignIn>

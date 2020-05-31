@@ -1,14 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledBoardsOverview = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 150px;
-  column-gap: 40px;
-  row-gap: 40px;
-  justify-content: center;
-  justify-items: stretch;
-
+export const BoardsOverviewContainer = styled.div`
   width: 100%;
   height: 53vh;
   border-radius: 5px;
@@ -19,8 +11,22 @@ export const StyledBoardsOverview = styled.div`
   overflow-x: hidden;
 
   @media screen and (max-width: 1100px) {
-    grid-template-columns: repeat(3, 1fr);
     width: 80%;
+  }
+`;
+
+export const BoardsOverviewContent = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 150px;
+  column-gap: 40px;
+  row-gap: 40px;
+
+  justify-content: center;
+  justify-items: stretch;
+
+  @media screen and (max-width: 1100px) {
+    grid-template-columns: repeat(3, 1fr);
   }
 
   @media screen and (max-width: 600px) {

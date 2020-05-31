@@ -19,6 +19,7 @@ import {
 } from './add-board.styles';
 
 const AddBoard = ({ addBoard, currentUser }) => {
+  console.log('add board');
   const [boardInfos, setBoardInfos] = useState({
     imgName: '2',
     title: '',

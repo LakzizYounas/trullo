@@ -12,6 +12,15 @@ export const StyledHeader = styled.div`
 
 export const LeftContainer = styled.div`
   width: 33%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const StyledDisplayName = styled.div`
+  width: min-content;
+  margin-left: auto;
+  font: italic 1.2em "Fira Sans", serif;
 `;
 
 export const Logo = styled(TrulloSvg)`
@@ -29,11 +38,6 @@ export const RightContainer = styled.div`
   height: 100%;
   width: 33%;
   color: white;
-`;
-
-export const StyledDisplayName = styled.div`
-  margin: 10px 10px 0 10px;
-  font: italic 1.2em "Fira Sans", serif;
 `;
 
 export const StyledSignOut = styled.div`

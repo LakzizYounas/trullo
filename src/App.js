@@ -1,4 +1,5 @@
 import React, { Suspense, lazy, useEffect } from 'react';
+import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -17,11 +18,11 @@ import Header from './components/header/header.component';
 import Spinner from './components/spinner/spinner.component';
 
 const Homepage = lazy(() =>
-import('./pages/homepage/homepage.component'));
+  import('./pages/homepage/homepage.component'));
 const SignInSignUp = lazy(() =>
-import('./pages/sign-in-sign-up/sign-in-sign-up.component'));
+  import('./pages/sign-in-sign-up/sign-in-sign-up.component'));
 const Board = lazy(() =>
-import('./pages/board/board.component'));
+  import('./pages/board/board.component'));
 
 const App = ({ checkUserSession, currentUser, isFetchingUser }) => {
   useEffect(() => {
@@ -30,23 +31,29 @@ const App = ({ checkUserSession, currentUser, isFetchingUser }) => {
 
   return (
     <>
-    <Header />
-    {isFetchingUser ?
-      <Spinner /> :
-      <Switch>
-        <Suspense fallback={<Spinner />}>
-          {!currentUser &&
-            <Redirect to='/sign' />
-          }
-          <Route exact path='/' component={Homepage} /> 
-          <Route exact path='/sign' render={() => currentUser ? <Redirect to='/'/> : <SignInSignUp />} />
-          <Route exact path='/board' component={Board} />
-        </Suspense>
-      </Switch>
-    }
+      <Header />
+      {isFetchingUser ?
+        <Spinner /> :
+        <Switch>
+          <Suspense fallback={<Spinner />}>
+            {!currentUser &&
+              <Redirect to='/sign' />
+            }
+            <Route exact path='/' component={Homepage} /> 
+            <Route exact path='/sign' render={() => currentUser ? <Redirect to='/'/> : <SignInSignUp />} />
+            <Route exact path='/board' component={Board} />
+          </Suspense>
+        </Switch>
+      }
     </>
   );
-}
+};
+
+App.propTypes = {
+  checkUserSession: Proptypes.func.isRequired,
+  currentUser: Proptypes.object,
+  isFetchingUser: Proptypes.bool.isRequired,
+};
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
@@ -57,7 +64,4 @@ const mapDispatchToProps = dispatch => ({
   checkUserSession: () => dispatch(checkUserSession())
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

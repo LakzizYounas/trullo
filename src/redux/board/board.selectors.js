@@ -8,17 +8,12 @@ export const selectNewBoardHidden = createSelector(
   board => board.hidden
 );
 
-export const selectBoardsByIds = createSelector(
-  [selectBoard],
-  board => board.byIds
-);
-
-export const selectBoardsAllIds = createSelector(
-  [selectBoard],
-  board => board.allIds
-);
-
 export const selectBoards = createSelector(
   [selectBoard],
   board => boardsToArray(board.byIds, board.allIds)
+);
+
+export const selectIsFetchingUserBoards = createSelector(
+  [selectBoard],
+  board => board.isFetchingUserBoards
 );

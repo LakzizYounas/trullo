@@ -1,4 +1,4 @@
-import { takeLatest, put, all, call } from 'redux-saga/effects';
+import { takeLatest, put, all, call, delay } from 'redux-saga/effects';
 
 import { BoardActionTypes } from './board.types';
 import {
@@ -23,6 +23,7 @@ export function* addBoard({ payload }) {
 
 export function* loadUserBoards({ payload }) {
   try {
+    yield delay(2000);
     const querySnapshot = yield db.collection('boards')
       .where('user', '==', payload)
       .orderBy('timestamp').get();
