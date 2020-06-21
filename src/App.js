@@ -18,6 +18,7 @@ import './App.css';
 
 import Header from './components/header/header.component';
 import Spinner from './components/spinner/spinner.component';
+import ErrorBoundary from './components/error-boundary/error-boundary.component';
 
 const Homepage = lazy(() =>
   import('./pages/homepage/homepage.component'));
@@ -29,15 +30,17 @@ const Board = lazy(() =>
 const ContentApp = (currentUser) => (
   <ConnectedRouter history={history}>
     <Switch>
-      <Suspense fallback={<Spinner />}>
-        {currentUser ? (<>
-          <Route exact path='/' component={Homepage} />
-          <Route exact path='/board/:name' component={Board} />
-        </>) : (<>
-          <Redirect to='/sign'/>
-        </>)}
-        <Route exact path='/sign' render={() => currentUser ? <Redirect to='/'/> : <SignInSignUp />} />
-      </Suspense>
+      <ErrorBoundary>
+        <Suspense fallback={<Spinner />}>
+          {currentUser ? (<>
+            <Route exact path='/' component={Homepage} />
+            <Route exact path='/board/:name' component={Board} />
+          </>) : (<>
+            <Redirect to='/sign'/>
+          </>)}
+          <Route exact path='/sign' render={() => currentUser ? <Redirect to='/'/> : <SignInSignUp />} />
+        </Suspense>
+      </ErrorBoundary>
     </Switch>
   </ConnectedRouter>
 );
