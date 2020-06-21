@@ -1,12 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import {
   StyledBoard,
 } from './board.styles';
 
-const Board = () => (
+const Board = ({ router }) => console.log(router) || (
   <StyledBoard>
+    {router.location.pathname}
   </StyledBoard>
 );
 
-export default Board;
+Board.propTypes = {
+  router: PropTypes.object,
+};
+
+const mapStateToProps = state => ({
+  router: state.router,
+});
+
+export default connect(mapStateToProps)(Board);

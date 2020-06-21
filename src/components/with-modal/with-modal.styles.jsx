@@ -47,4 +47,7 @@ export const Title = styled.div`
 export const Cross = styled(CrossSvg)`
   height: 30px;
   width: auto;
+  &:hover {
+    cursor: pointer;
+  }
 `;

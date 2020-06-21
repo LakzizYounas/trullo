@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useEffect } from 'react';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -8,6 +8,8 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
+import { history } from './redux/store';
 
 import { selectCurrentUser, selectIsFetching } from './redux/user/user.selectors';
 import { checkUserSession } from './redux/user/user.actions';
@@ -24,6 +26,22 @@ const SignInSignUp = lazy(() =>
 const Board = lazy(() =>
   import('./pages/board/board.component'));
 
+const ContentApp = (currentUser) => (
+  <ConnectedRouter history={history}>
+    <Switch>
+      <Suspense fallback={<Spinner />}>
+        {currentUser ? (<>
+          <Route exact path='/' component={Homepage} />
+          <Route exact path='/board/:name' component={Board} />
+        </>) : (<>
+          <Redirect to='/sign'/>
+        </>)}
+        <Route exact path='/sign' render={() => currentUser ? <Redirect to='/'/> : <SignInSignUp />} />
+      </Suspense>
+    </Switch>
+  </ConnectedRouter>
+);
+
 const App = ({ checkUserSession, currentUser, isFetchingUser }) => {
   useEffect(() => {
     checkUserSession();
@@ -34,25 +52,16 @@ const App = ({ checkUserSession, currentUser, isFetchingUser }) => {
       <Header />
       {isFetchingUser ?
         <Spinner /> :
-        <Switch>
-          <Suspense fallback={<Spinner />}>
-            {!currentUser &&
-              <Redirect to='/sign' />
-            }
-            <Route exact path='/' component={Homepage} /> 
-            <Route exact path='/sign' render={() => currentUser ? <Redirect to='/'/> : <SignInSignUp />} />
-            <Route exact path='/board' component={Board} />
-          </Suspense>
-        </Switch>
+        ContentApp(currentUser)
       }
     </>
   );
 };
 
 App.propTypes = {
-  checkUserSession: Proptypes.func.isRequired,
-  currentUser: Proptypes.object,
-  isFetchingUser: Proptypes.bool.isRequired,
+  checkUserSession: PropTypes.func.isRequired,
+  currentUser: PropTypes.object,
+  isFetchingUser: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

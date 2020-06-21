@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { push } from 'connected-react-router';
 
 import {
   selectNewBoardHidden,
@@ -25,12 +26,24 @@ import AddBoard from '../../components/add-board/add-board.component';
 const ModalAddBoard = WithModal(AddBoard);
 const SpinnerBoardsOverviewContent = WithSpinner(BoardsOverviewContent);
 
-const BoardsOverview = ({ hidden, toggleNewBoardHidden, boards, isLoading }) => (
+const BoardsOverview = ({
+  hidden,
+  toggleNewBoardHidden,
+  boards,
+  isLoading,
+  redirect,
+}) => (
   <>
     <ModalAddBoard isOpen={!hidden} close={toggleNewBoardHidden} title='New Card' />
     <BoardsOverviewContainer>
       <SpinnerBoardsOverviewContent isLoading={isLoading}>
-        {boards.map(({ id, ...otherProps }) => (<Card key={id} hover {...otherProps} />))}
+        {boards.map(({ id, title, ...otherProps }) =>
+          (<Card
+            key={id} hover title={title}
+            onClick={() => redirect(`/board/${title}`) }
+            {...otherProps}
+          />)
+        )}
         <Card title='Create new board' hover onClick={toggleNewBoardHidden} />
       </SpinnerBoardsOverviewContent>
     </BoardsOverviewContainer>
@@ -42,6 +55,7 @@ BoardsOverview.propTypes = {
   toggleNewBoardHidden: PropTypes.func.isRequired,
   boards: PropTypes.array.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  redirect: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -52,6 +66,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
   toggleNewBoardHidden: () => dispatch(toggleNewBoardHidden()),
+  redirect: (path) => dispatch(push(path)),
 });
 
 export default compose(

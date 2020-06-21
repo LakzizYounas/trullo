@@ -51,17 +51,3 @@ export const StyledSignOut = styled.div`
     cursor: pointer;
   }
 `;
-
-export const StyledSignIn = styled.div`
-  width: 30%;
-  height: 50%;
-  border: 1px solid white;
-  border-radius: 5px;
-  margin: 0 10px;
-  text-align: center;
-
-  &:hover {
-    cursor: pointer;
-    background-color: #0a71ad;
-  }
-`;
