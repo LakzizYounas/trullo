@@ -15,12 +15,14 @@ export const LeftContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  color: white;
 `;
 
 export const StyledDisplayName = styled.div`
   width: min-content;
   margin-left: auto;
   font: italic 1.2em "Fira Sans", serif;
+  
 `;
 
 export const Logo = styled(TrulloSvg)`

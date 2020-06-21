@@ -12,8 +12,8 @@ export const addBoardStart = (boardInfos) => ({
 export const addBoardSuccess = (board) => ({
   type: BoardActionTypes.ADD_BOARD_SUCCESS,
   payload: {
-    byIds: { [board.id]: board },
-    allIds: [board.id],
+    byNames: { [board.title]: board },
+    allNames: [board.title],
   },
 });
 
@@ -27,11 +27,11 @@ export const loadUserBoardsStart = (userid) => ({
   payload: userid,
 });
 
-export const loadUserBoardsSuccess = ({ byIds, allIds }) => ({
+export const loadUserBoardsSuccess = ({ byNames, allNames }) => ({
   type: BoardActionTypes.LOAD_USER_BOARDS_SUCCESS,
   payload: {
-    byIds,
-    allIds,
+    byNames,
+    allNames,
   },
 });
 

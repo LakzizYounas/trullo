@@ -5,8 +5,8 @@ import { Map, Set } from 'immutable';
 const INITIAL_STATE = {
   error: null,
   hidden: true,
-  byIds: new Map(),
-  allIds: new Set(),
+  byNames: new Map(),
+  allNames: new Set(),
   isFetchingUserBoards: false,
 };
 
@@ -29,8 +29,8 @@ const boardReducer = (state = INITIAL_STATE, action) => {
       ...state,
       error: null,
       hidden: true,
-      byIds: new Map(payload.byIds),
-      allIds: new Set(payload.allIds),
+      byNames: new Map(payload.byNames),
+      allNames: new Set(payload.allNames),
       isFetchingUserBoards: false,
     };
   case BoardActionTypes.ADD_BOARD_SUCCESS:
@@ -38,8 +38,8 @@ const boardReducer = (state = INITIAL_STATE, action) => {
       ...state,
       error: null,
       hidden: true,
-      byIds: state.byIds.merge(payload.byIds),
-      allIds: state.allIds.union(payload.allIds),
+      byNames: state.byNames.merge(payload.byNames),
+      allNames: state.allNames.union(payload.allNames),
     };
   case BoardActionTypes.ADD_BOARD_FAILURE:
   case BoardActionTypes.LOAD_USER_BOARDS_FAILURE:

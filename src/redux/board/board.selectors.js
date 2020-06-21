@@ -10,7 +10,12 @@ export const selectNewBoardHidden = createSelector(
 
 export const selectBoards = createSelector(
   [selectBoard],
-  board => boardsToArray(board.byIds, board.allIds)
+  board => boardsToArray(board.byNames, board.allNames)
+);
+
+export const selectBoardByName = (title) => createSelector(
+  [selectBoard],
+  board => board.byNames.get(title)
 );
 
 export const selectIsFetchingUserBoards = createSelector(

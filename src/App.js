@@ -14,7 +14,7 @@ import { history } from './redux/store';
 import { selectCurrentUser, selectIsFetching } from './redux/user/user.selectors';
 import { checkUserSession } from './redux/user/user.actions';
 
-import './App.css';
+import { StyledApp } from './App.styles';
 
 import Header from './components/header/header.component';
 import Spinner from './components/spinner/spinner.component';
@@ -27,17 +27,31 @@ const SignInSignUp = lazy(() =>
 const Board = lazy(() =>
   import('./pages/board/board.component'));
 
+// const ContentApp = (currentUser) => (
+//   <ConnectedRouter history={history}>
+//     <Switch>
+//       <ErrorBoundary>
+//         <Suspense fallback={<Spinner />}>
+//           {currentUser ? (<>
+//             <Route exact path='/' component={Homepage} />
+//             <Route exact path='/board/:name' component={Board} />
+//           </>) : (<>
+//             <Redirect to='/sign'/>
+//           </>)}
+//           <Route exact path='/sign' render={() => currentUser ? <Redirect to='/'/> : <SignInSignUp />} />
+//         </Suspense>
+//       </ErrorBoundary>
+//     </Switch>
+//   </ConnectedRouter>
+// );
+
 const ContentApp = (currentUser) => (
   <ConnectedRouter history={history}>
     <Switch>
       <ErrorBoundary>
         <Suspense fallback={<Spinner />}>
-          {currentUser ? (<>
-            <Route exact path='/' component={Homepage} />
-            <Route exact path='/board/:name' component={Board} />
-          </>) : (<>
-            <Redirect to='/sign'/>
-          </>)}
+          <Route exact path='/' render={() => !currentUser ? <Redirect to='/sign'/> : <Homepage />} />
+          <Route exact path='/board/:name' render={() => !currentUser ? <Redirect to='/sign'/> : <Board />} />
           <Route exact path='/sign' render={() => currentUser ? <Redirect to='/'/> : <SignInSignUp />} />
         </Suspense>
       </ErrorBoundary>
@@ -51,13 +65,13 @@ const App = ({ checkUserSession, currentUser, isFetchingUser }) => {
   }, [checkUserSession]);
 
   return (
-    <>
+    <StyledApp>
       <Header />
       {isFetchingUser ?
         <Spinner /> :
         ContentApp(currentUser)
       }
-    </>
+    </StyledApp>
   );
 };
 

@@ -1,4 +1,4 @@
-export const boardsToArray = (byIds, allIds) =>
-  allIds.map(e => byIds.get(e))
+export const boardsToArray = (byNames, allNames) =>
+  allNames.map(e => byNames.get(e))
     .toArray()
     .filter(e => e !== undefined);

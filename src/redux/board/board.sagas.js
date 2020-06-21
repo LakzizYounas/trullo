@@ -27,14 +27,14 @@ export function* loadUserBoards({ payload }) {
     const querySnapshot = yield db.collection('boards')
       .where('user', '==', payload)
       .orderBy('timestamp').get();
-    const byIds = {};
-    const allIds = [];
+    const byNames = {};
+    const allNames = [];
     querySnapshot.forEach(doc => {
       const data = doc.data();
-      byIds[doc.id] = { id: doc.id, ...data };
-      allIds.push(doc.id);
+      byNames[data.title] = { ...data };
+      allNames.push(data.title);
     });
-    yield put(loadUserBoardsSuccess({ byIds, allIds }));
+    yield put(loadUserBoardsSuccess({ byNames, allNames }));
   } catch (error) {
     yield put(loadUserBoardsFailure(error));
   }

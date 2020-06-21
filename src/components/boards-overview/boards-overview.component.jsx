@@ -37,9 +37,9 @@ const BoardsOverview = ({
     <ModalAddBoard isOpen={!hidden} close={toggleNewBoardHidden} title='New Card' />
     <BoardsOverviewContainer>
       <SpinnerBoardsOverviewContent isLoading={isLoading}>
-        {boards.map(({ id, title, ...otherProps }) =>
+        {boards.map(({ title, ...otherProps }) =>
           (<Card
-            key={id} hover title={title}
+            key={title} hover title={title}
             onClick={() => redirect(`/board/${title}`) }
             {...otherProps}
           />)
