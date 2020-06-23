@@ -27,31 +27,17 @@ const SignInSignUp = lazy(() =>
 const Board = lazy(() =>
   import('./pages/board/board.component'));
 
-// const ContentApp = (currentUser) => (
-//   <ConnectedRouter history={history}>
-//     <Switch>
-//       <ErrorBoundary>
-//         <Suspense fallback={<Spinner />}>
-//           {currentUser ? (<>
-//             <Route exact path='/' component={Homepage} />
-//             <Route exact path='/board/:name' component={Board} />
-//           </>) : (<>
-//             <Redirect to='/sign'/>
-//           </>)}
-//           <Route exact path='/sign' render={() => currentUser ? <Redirect to='/'/> : <SignInSignUp />} />
-//         </Suspense>
-//       </ErrorBoundary>
-//     </Switch>
-//   </ConnectedRouter>
-// );
-
 const ContentApp = (currentUser) => (
   <ConnectedRouter history={history}>
     <Switch>
       <ErrorBoundary>
         <Suspense fallback={<Spinner />}>
-          <Route exact path='/' render={() => !currentUser ? <Redirect to='/sign'/> : <Homepage />} />
-          <Route exact path='/board/:name' render={() => !currentUser ? <Redirect to='/sign'/> : <Board />} />
+          {currentUser ? (<>
+            <Route exact path='/' component={Homepage} />
+            <Route exact path='/board/:name' component={Board} />
+          </>) : (<>
+            <Redirect to='/sign'/>
+          </>)}
           <Route exact path='/sign' render={() => currentUser ? <Redirect to='/'/> : <SignInSignUp />} />
         </Suspense>
       </ErrorBoundary>
