@@ -15,7 +15,7 @@ export const selectBoards = createSelector(
 
 export const selectBoardByName = (title) => createSelector(
   [selectBoard],
-  board => board.byNames.get(title)
+  board => board.byNames.get(title) || {}
 );
 
 export const selectIsFetchingUserBoards = createSelector(
