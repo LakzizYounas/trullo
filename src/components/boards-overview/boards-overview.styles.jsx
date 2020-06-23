@@ -9,7 +9,7 @@ export const BoardsOverviewContainer = styled.div`
   padding: 40px;
   overflow-y: auto;
   overflow-x: hidden;
-
+  background-color: white;
   @media screen and (max-width: 1100px) {
     width: 80%;
   }
