@@ -7,6 +7,7 @@ export const StyledContainer = styled.div`
   box-shadow: 0 0 10px #e0dbdb;
   padding: 40px;
   width: 40%;
+  background-color: ${({theme}) => theme.primary};
 
   @media screen and (max-width: 1100px) {
     margin-bottom: 40px;

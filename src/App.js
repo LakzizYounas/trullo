@@ -14,7 +14,8 @@ import { history } from './redux/store';
 import { selectCurrentUser, selectIsFetching } from './redux/user/user.selectors';
 import { checkUserSession } from './redux/user/user.actions';
 
-import { StyledApp } from './App.styles';
+import { ThemeProvider } from 'styled-components';
+import { StyledApp, theme } from './App.styles';
 
 import Header from './components/header/header.component';
 import Spinner from './components/spinner/spinner.component';
@@ -51,13 +52,15 @@ const App = ({ checkUserSession, currentUser, isFetchingUser }) => {
   }, [checkUserSession]);
 
   return (
-    <StyledApp>
-      <Header />
-      {isFetchingUser ?
-        <Spinner /> :
-        ContentApp(currentUser)
-      }
-    </StyledApp>
+    <ThemeProvider theme={theme}>
+      <StyledApp>
+        <Header />
+        {isFetchingUser ?
+          <Spinner /> :
+          ContentApp(currentUser)
+        }
+      </StyledApp>
+    </ThemeProvider>
   );
 };
 

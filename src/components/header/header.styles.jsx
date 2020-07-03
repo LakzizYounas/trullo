@@ -6,7 +6,7 @@ export const StyledHeader = styled.div`
   display: flex;
   justify-content: space-between;
 
-  background-color: #026AA7;
+  background-color: ${({theme}) => theme.main};
   padding: 5px 0 5px 0;
 `;
 
